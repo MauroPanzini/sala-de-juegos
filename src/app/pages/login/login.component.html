@@ -1,0 +1,41 @@
+<!-- <div class="login-container">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" [formControlName]="'username'" class="form-control" />
+        <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+          Username is required
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" [formControlName]="'password'" class="form-control" />
+        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+          Password is required
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div> -->
+  <div class="login-container">
+    <div class="background">
+      <div class="sun"></div>
+      <div class="trees">
+        <div class="tree"></div>
+        <div class="tree medium"></div>
+        <div class="tree large"></div>
+      </div>
+    </div>
+  
+    <div class="login-box">
+      <h2>Iniciar Sesión</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <input type="email" formControlName="username" placeholder="CORREO ELECTRONICO" />
+        <input type="password" formControlName="password" placeholder="CONTRASEÑA" />
+        <button type="submit">Ingresar</button>
+      </form>
+    </div>
+  </div>
+  
