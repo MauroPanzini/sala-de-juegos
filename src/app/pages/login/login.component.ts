@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-login',
-  standalone: true,  // Indica que este es un componente standalone
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  standalone: true,  // Indica que este es un componente standalone
   imports: [ReactiveFormsModule, CommonModule]  // Importa los módulos necesarios
 })
 export class LoginComponent {
@@ -16,26 +17,28 @@ export class LoginComponent {
 
   constructor(private formBuilder: FormBuilder, private router: Router) {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: [''],
+      password: ['']
     });
   }
 
-  get f() { return this.loginForm.controls; }
-
   onSubmit() {
     this.submitted = true;
-
+    console.log("entre");
     if (this.loginForm.invalid) {
+      console.log("entre2");
       return;
     }
-
+    else
+    this.router.navigate(['/home']);
     const { username, password } = this.loginForm.value;
     
-    if (username === 'admin' && password === 'admin') {
-      this.router.navigate(['/dashboard']);
-    } else {
-      alert('Invalid credentials');
-    }
+    
+    // if (username === 'admin' && password === 'admin123') {
+    //   console.log("entre3");
+    //   this.router.navigate(['/home']);
+    // } else {
+    //   alert('Invalid credentials');
+    // }
   }
 }
