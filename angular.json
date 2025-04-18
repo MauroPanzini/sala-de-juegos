@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "SalaDeJuegos": {
+    "sala-de-juegos": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -29,7 +29,8 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/favicon.ico"
             ],
             "styles": [
               "src/styles.scss",
@@ -49,8 +50,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "8MB",
+                  "maximumError": "8MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -72,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "SalaDeJuegos:build:production"
+              "buildTarget": "sala-de-juegos:build:production"
             },
             "development": {
-              "buildTarget": "SalaDeJuegos:build:development"
+              "buildTarget": "sala-de-juegos:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -96,7 +97,8 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              }
+              },
+              "src/favicon.ico"
             ],
             "styles": [
               "src/styles.scss"

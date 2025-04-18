@@ -1,0 +1,79 @@
+<div class="container min-vh-100 d-flex justify-content-center align-items-center bg-light">
+    <form [formGroup]="encuestaForm" (ngSubmit)="onSubmit()" class="bg-white p-4 rounded shadow w-100" style="max-width: 500px;">
+      <h2 class="text-center mb-4">Encuesta de juegos</h2>
+  
+      <!-- Nombre y Apellido separados -->
+      <div class="mb-3">
+        <label class="form-label">Nombre:</label>
+        <input type="text" class="form-control" formControlName="nombre" required />
+        <div *ngIf="encuestaForm.get('nombre')?.invalid && encuestaForm.get('nombre')?.touched" class="text-danger mt-1">
+          Este campo es obligatorio.
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label class="form-label">Apellido:</label>
+        <input type="text" class="form-control" formControlName="apellido" required />
+        <div *ngIf="encuestaForm.get('apellido')?.invalid && encuestaForm.get('apellido')?.touched" class="text-danger mt-1">
+          Este campo es obligatorio.
+        </div>
+      </div>
+  
+      <!-- Edad -->
+      <div class="mb-3">
+        <label class="form-label">Edad:</label>
+        <input type="number" class="form-control" formControlName="edad" required />
+        <div *ngIf="encuestaForm.get('edad')?.errors?.['min'] || encuestaForm.get('edad')?.errors?.['max']" class="text-danger mt-1">
+          La edad debe estar entre 18 y 99 años.
+        </div>
+      </div>
+  
+      <!-- Teléfono -->
+      <div class="mb-3">
+        <label class="form-label">Teléfono:</label>
+        <input type="text" class="form-control" formControlName="telefono" required />
+        <div *ngIf="encuestaForm.get('telefono')?.errors?.['pattern']" class="text-danger mt-1">
+          Solo se permiten números y máximo 10 caracteres.
+        </div>
+      </div>
+  
+      <!-- Juego favorito -->
+      <div class="mb-3">
+        <label class="form-label">¿Cuál es tu juego favorito?</label>
+        <input type="text" class="form-control" formControlName="juegoFavorito" required />
+      </div>
+  
+      <!-- Consolas -->
+      <div class="mb-3">
+        <label class="form-label">¿Qué consolas usás? (Seleccioná al menos una)</label>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" formControlName="usaPlay" id="playCheck" />
+          <label for="playCheck" class="form-check-label">PlayStation</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" formControlName="usaXbox" id="xboxCheck" />
+          <label for="xboxCheck" class="form-check-label">Xbox</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" formControlName="usaPc" id="pcCheck" />
+          <label for="pcCheck" class="form-check-label">PC</label>
+        </div>
+      </div>
+  
+      <!-- Preferencia -->
+      <div class="mb-3">
+        <label class="form-label">¿Preferís juegos online u offline?</label>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" formControlName="preferencia" value="Online" id="radioOnline" />
+          <label class="form-check-label" for="radioOnline">Online</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" formControlName="preferencia" value="Offline" id="radioOffline" />
+          <label class="form-check-label" for="radioOffline">Offline</label>
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary w-100" [disabled]="encuestaForm.invalid">Enviar</button>
+    </form>
+  </div>
+  

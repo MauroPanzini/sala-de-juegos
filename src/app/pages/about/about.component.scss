@@ -1,0 +1,12 @@
+p {
+  max-width: 60%;
+}
+img {
+    border-radius: 100%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+.profile-pic {
+    width: 200px; // Tamaño máximo cuando no está colapsado
+    height: 200px;
+}

@@ -1,44 +1,90 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Firestore, doc, setDoc, collection, addDoc } from '@angular/fire/firestore';
+import { UserSessionService } from '../../services/user-session.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  standalone: true,  // Indica que este es un componente standalone
-  imports: [ReactiveFormsModule, CommonModule]  // Importa los módulos necesarios
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, MatSnackBarModule]
 })
 export class LoginComponent {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  private auth = inject(Auth);
+  private firestore = inject(Firestore);
+  private snackBar = inject(MatSnackBar);
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userSession: UserSessionService
+  ) {
     this.loginForm = this.formBuilder.group({
-      username: [''],
-      password: ['']
+      username: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.submitted = true;
-    console.log("entre");
+
     if (this.loginForm.invalid) {
-      console.log("entre2");
       return;
     }
-    else
-    this.router.navigate(['/home']);
-    const { username, password } = this.loginForm.value;
-    
-    
-    // if (username === 'admin' && password === 'admin123') {
-    //   console.log("entre3");
-    //   this.router.navigate(['/home']);
-    // } else {
-    //   alert('Invalid credentials');
-    // }
+
+    const username = this.loginForm.get('username')?.value;
+    const password = this.loginForm.get('password')?.value;
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(this.auth, username, password);
+
+      this.userSession.setUserEmail(username);
+
+      const userId = userCredential.user.uid;
+      const email = userCredential.user.email;
+      const now = new Date();
+
+      await setDoc(
+        doc(this.firestore, 'users', userId),
+        {
+          email: email,
+          lastLogin: now
+        },
+        { merge: true }
+      );
+
+      const loginRef = collection(this.firestore, `users/${userId}/logins`);
+      await addDoc(loginRef, {
+        email: email,
+        timestamp: now
+      });
+
+      this.router.navigate(['/inicio']);
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      this.snackBar.open('Credenciales inválidas o error en el login', 'Cerrar', {
+        duration: 4000,
+        verticalPosition: 'top',
+      });
+    }
+  }
+
+  fillAdminCredentials() {
+    this.loginForm.patchValue({
+      username: 'admin@admin.com',
+      password: 'admin123'
+    });
+  }
+
+  goToRegister() {
+    this.router.navigate(['/registro']);
   }
 }

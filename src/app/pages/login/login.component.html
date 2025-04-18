@@ -1,20 +1,37 @@
-  <div class="login-container">
-    <div class="background">
-      <div class="sun"></div>
-      <div class="trees">
-        <div class="tree"></div>
-        <div class="tree medium"></div>
-        <div class="tree large"></div>
+<div class="login-container background">
+  <div class="login-box">
+    <h2>Iniciar sesión</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <input type="email" formControlName="username" placeholder="Correo electrónico" />
+      <div class="error-space">
+        <div *ngIf="submitted && loginForm.get('username')?.errors?.['required']" class="error">
+          El correo es requerido.
+        </div>
+        <div *ngIf="submitted && loginForm.get('username')?.errors?.['email']" class="error">
+          El correo no es válido.
+        </div>
       </div>
-    </div>
-  
-    <div class="login-box">
-      <h2>Iniciar Sesión</h2>
-      <form [formGroup]="loginForm">
-        <input type="email" formControlName="username" placeholder="CORREO ELECTRONICO" />
-        <input type="password" formControlName="password" placeholder="CONTRASEÑA" />
-        <button (click)="onSubmit()">Ingresar</button>
-      </form>
-    </div>
+
+      <input type="password" formControlName="password" placeholder="Contraseña" />
+      <div class="error-space">
+        <div *ngIf="submitted && loginForm.get('password')?.errors?.['required']" class="error">
+          La contraseña es requerida.
+        </div>
+      </div>
+
+      <button type="submit">Ingresar</button>
+    </form>
+
+    <br />
+
+    <button class="auto-fill-button" (click)="fillAdminCredentials()">
+      <i>Ingresar como admin</i>
+    </button>
+
+    <br /><br />
+
+    <button class="register-button" (click)="goToRegister()">
+      ¿No tienes una cuenta? Regístrate
+    </button>
   </div>
-  
+</div>
