@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { UserSessionService } from '../../services/user-session.service';
+import { inject } from '@angular/core';
+import { Auth, signOut } from '@angular/fire/auth';
 
 export type MenuItem = {
   icon: string;
@@ -33,6 +35,7 @@ export type MenuItem = {
 export class SidebarComponent {
   collapsed = signal(false);
   sidenavWidth = computed(() => (this.collapsed() ? '65px' : '200px'));
+  private auth = inject(Auth);
 
   // Usuario
   userEmail = signal<string | null>(null);
@@ -42,6 +45,7 @@ export class SidebarComponent {
   menuItems = signal<MenuItem[]>([
     { icon: 'home', label: 'Inicio', route: 'inicio' },
     { icon: 'sports_esports', label: 'Juegos', route: 'juegos' },
+    { icon: 'chat', label: 'Chat', route: 'chat' },
     { icon: 'bar_chart', label: 'Estadísticas', route: 'estadisticas' },
     { icon: 'mood', label: 'Encuesta', route: 'encuesta' },
     { icon: 'info', label: 'Sobre mi', route: 'sobre-mi' }
@@ -68,11 +72,17 @@ export class SidebarComponent {
     }
   }
 
-  onLogout() {
-    this.userSession.clear(); // Usar el servicio para limpiar
-    this.router.navigate(['/inicio']);
-    window.location.reload(); // Recargar para reiniciar el estado
+  async onLogout() {
+    try {
+      await signOut(this.auth); // Cierra la sesión de Firebase
+      this.userSession.clear(); // Limpia el almacenamiento local
+      this.router.navigate(['/inicio']);
+      window.location.reload(); // Reinicia la app para limpiar estado visual
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
   }
+  
   mainMenuItems = computed(() =>
     this.menuItems().filter(item => item.label !== 'Salir' && item.label !== 'Ingresar')
   );

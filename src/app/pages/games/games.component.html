@@ -1,1 +1,15 @@
-<p>games works!</p>
+<div class="gameboy">
+    <div class="screen">
+      <div class="carousel">
+        <div *ngFor="let game of games; let i = index" [class.active]="i === selectedGame">
+          <img [src]="game.image" [alt]="game.name" />
+          <p>{{ game.name }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="controls">
+      <button (click)="prevGame()">◀</button>
+      <button (click)="nextGame()">▶</button>
+    </div>
+  </div>
+  

@@ -1,0 +1,25 @@
+<mat-card class="chat-container">
+    <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+      <div class="messages">
+        <div *ngFor="let msg of messages$ | async" class="message">
+          <strong>{{ msg.email }}</strong>
+          <small>{{ msg.timestamp?.toDate() | date:'short' }}</small>
+          <p>{{ msg.message }}</p>
+        </div>
+      </div>
+  
+      <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="chat-form">
+        <mat-form-field appearance="fill" class="input">
+          <input matInput placeholder="Escribe tu mensaje" formControlName="message">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="chatForm.invalid">Enviar</button>
+      </form>
+    </ng-container>
+  
+    <ng-template #notLoggedIn>
+      <div class="not-logged-in">
+        <h3>¡Ingresa para chatear!</h3>
+      </div>
+    </ng-template>
+  </mat-card>
+  

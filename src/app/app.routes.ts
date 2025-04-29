@@ -12,6 +12,7 @@ import { TriviaComponent } from './pages/games/trivia/trivia.component';
 import { HigherLowerComponent } from './pages/games/higher-lower/higher-lower.component';
 import { ConnectFourComponent } from './pages/games/connect-four/connect-four.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ChatComponent } from './pages/chat/chat.component';
 
 export const routes: Routes = [
   { path: 'iniciar-sesion', component: LoginComponent }, // Carga el componente standalone
@@ -31,6 +32,7 @@ export const routes: Routes = [
           { path: 'cuatro-en-linea', component: ConnectFourComponent },
         ],
       },
+      { path: 'chat', component: ChatComponent},
       { path: 'estadisticas', component: StatisticsComponent },
       { path: 'encuesta', component: SurveyComponent },
       { path: 'sobre-mi', component: AboutComponent },
