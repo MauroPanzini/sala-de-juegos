@@ -1,22 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { UserSessionService } from '../../services/user-session.service';
+import { get } from 'http';
 
 @Component({
   selector: 'app-survey',
   standalone: true,
   imports: [
     CommonModule,
-    ReactiveFormsModule // 👈 IMPORTANTE
+    ReactiveFormsModule, 
+    MatSnackBarModule
   ],
   templateUrl: './survey.component.html',
   styleUrl: './survey.component.scss',
 })
 export class SurveyComponent {
   encuestaForm: FormGroup;
-
-  constructor(private fb: FormBuilder,  private firestore: Firestore) {
+  user = "Anónimo";
+  private snackBar = inject(MatSnackBar);
+  constructor(private fb: FormBuilder,  private firestore: Firestore, private userSession: UserSessionService) {
     this.encuestaForm = this.fb.group({
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -34,19 +39,25 @@ export class SurveyComponent {
   async onSubmit() {
     if (this.encuestaForm.valid) {
       const datos = this.encuestaForm.value;
-  
-      const userId = 'alguna-id-de-usuario'; // o Firebase Auth si estás logueando usuarios
+
+      this.user = this.userSession.getUserName() ?? 'Anónimo';
   
       const encuestasRef = collection(this.firestore, 'encuestas');
   
       await addDoc(encuestasRef, {
-        userId,
+        nombreUsuario:this.user,
         ...datos,
         fecha: new Date(),
       });
   
-      alert('Encuesta enviada correctamente!');
+      this.snackBar.open('Encuesta enviada correctamente!', 'Cerrar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+      });
+  
       this.encuestaForm.reset();
     }
   }
+  
 }
