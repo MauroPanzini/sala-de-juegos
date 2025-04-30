@@ -51,9 +51,7 @@ export class SurveyComponent {
       });
   
       this.snackBar.open('Encuesta enviada correctamente!', 'Cerrar', {
-        duration: 3000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
+        duration: 3000
       });
   
       this.encuestaForm.reset();

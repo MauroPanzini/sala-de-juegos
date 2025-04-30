@@ -19,7 +19,7 @@ import { UserSessionService } from '../../services/user-session.service'; // tu 
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSnackBarModule // import del módulo para mostrar mensajes
+    MatSnackBarModule 
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
