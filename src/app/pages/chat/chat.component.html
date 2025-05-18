@@ -23,15 +23,6 @@
     </div>
 
     <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="chat-form">
-      <!-- <input
-        type="text"
-        class="input-message"
-        placeholder="Escribe tu mensaje"
-        formControlName="message"
-      />
-      <button class="btn-send" type="submit" [disabled]="chatForm.invalid">
-        Enviar
-      </button> -->
       <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="chat-form">
         <div class="input-container">
           <textarea

@@ -6,7 +6,6 @@
   align-items: center;
   padding: 40px 20px;
   color: $green;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 .encuesta-form {
@@ -15,6 +14,7 @@
   border-radius: 12px;
   width: 100%;
   max-width: 900px;
+  background-color: $black;
 }
 
 h2 {

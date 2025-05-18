@@ -106,7 +106,6 @@ export class AuthComponent {
       );
 
       this.userSession.setUserEmail(username);
-
       const userId = userCredential.user.uid;
       const email = userCredential.user.email;
       const now = new Date();

@@ -34,19 +34,21 @@ export class UserSessionService {
       sessionStorage.clear();
     }
   }
-private readonly USER_AVATAR_KEY = 'userAvatar';
+  private readonly USER_AVATAR_KEY = 'userAvatar';
 
-setUserAvatar(url: string): void {
-  if (this.isBrowser()) {
-    sessionStorage.setItem(this.USER_AVATAR_KEY, url);
+  setUserAvatar(url: string): void {
+    if (this.isBrowser()) {
+      sessionStorage.setItem(this.USER_AVATAR_KEY, url);
+    }
   }
-}
 
-getUserAvatar(): string | null {
-  if (this.isBrowser()) {
-    return sessionStorage.getItem(this.USER_AVATAR_KEY);
+  getUserAvatar(): string | null {
+    if (this.isBrowser()) {
+      return sessionStorage.getItem(this.USER_AVATAR_KEY);
+    }
+    return null;
   }
-  return null;
-}
-
+  isLoggedIn(): boolean {
+    return sessionStorage.getItem('userEmail') !== null;
+  }
 }

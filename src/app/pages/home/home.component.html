@@ -23,10 +23,22 @@
 
   <!-- DERECHA: Configuración -->
   <div class="column">
-    <div class="card" (click)="goToSettings()">
+    <div class="card" (click)="toggleConfiguracion()">
       <h3>Configuración</h3>
       <p>Preferencias del jugador, sonido, etc.</p>
     </div>
   </div>
 </div>
 
+<!-- Panel flotante de configuración -->
+<div class="config-panel" *ngIf="mostrarConfiguracion">
+  <h3>Elegí un fondo</h3>
+  <div class="gif-options">
+    <img *ngFor="let fondo of fondos"
+         [src]="fondo"
+         (click)="cambiarFondo(fondo)"
+         [class.selected]="fondo === fondoSeleccionado"
+    />
+    <button (click)="quitarFondo()">Sin fondo</button>
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
-import { UserSessionService } from '../../core/services/user-session.service'; // Importar el servicio
+import { UserSessionService } from '../../core/services/user-session.service';
 import { Router } from '@angular/router';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { GameScoreService } from '../../core/services/game-score.service';
@@ -19,6 +19,16 @@ Chart.register(...registerables);
 export class HomeComponent implements OnInit {
   userName: string | null = null;
   games = ['Ahorcado', 'Preguntados', 'Mayor o Menor', 'Buscaminas'];
+
+  // 🔧 Fondo animado
+  fondos: string[] = [
+    '../../../assets/backgrounds/background-gif1.gif',
+    '../../../assets/backgrounds/salaDeJuegosLogin.gif',
+    '../../../assets/backgrounds/background-gif3.gif',
+  ];
+  fondoSeleccionado: string = '';
+  mostrarConfiguracion = false;
+
   constructor(
     private userSession: UserSessionService,
     private router: Router,
@@ -28,6 +38,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.userName = this.userSession.getUserName() ?? 'Anónimo';
     this.renderChart();
+
+    const fondoGuardado = localStorage.getItem('fondoSeleccionado');
+    if (fondoGuardado) {
+      this.fondoSeleccionado = fondoGuardado;
+      this.aplicarFondo(fondoGuardado);
+    }
   }
 
   navigateToGame(ruta: string) {
@@ -38,9 +54,10 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/chat']);
   }
 
-  goToSettings() {
-    this.router.navigate(['/configuracion']);
-  }
+  // goToSettings() {
+  //   this.router.navigate(['/configuracion']);
+  // }
+
   async renderChart() {
     const stats = await this.scoreService.getGamesPlayCounts(this.games);
     const labels = stats.map((s) => s.game);
@@ -72,4 +89,30 @@ export class HomeComponent implements OnInit {
 
     new Chart('gameChart', chartConfig);
   }
+
+  toggleConfiguracion(): void {
+    this.mostrarConfiguracion = !this.mostrarConfiguracion;
+  }
+
+  // 🎨 Aplicar fondo
+  cambiarFondo(fondo: string): void {
+    this.fondoSeleccionado = fondo;
+    localStorage.setItem('fondoSeleccionado', fondo);
+    this.aplicarFondo(fondo);
+  }
+
+  aplicarFondo(fondo: string): void {
+    document.body.style.backgroundImage = `url('${fondo}')`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundAttachment = 'fixed';
+  }
+  quitarFondo(): void {
+  this.fondoSeleccionado = '';
+  localStorage.removeItem('fondoSeleccionado');
+  document.body.style.backgroundImage = '';
+  document.body.style.backgroundSize = '';
+  document.body.style.backgroundRepeat = '';
+  document.body.style.backgroundAttachment = '';
+}
 }

@@ -18,6 +18,7 @@ export const routes: Routes = [
     path: '',
     component: LayoutComponent,
     children: [
+      { path: '', redirectTo: 'inicio', pathMatch: 'full' },
       { path: 'inicio', component: HomeComponent },
       {
         path: 'juegos',
@@ -30,7 +31,7 @@ export const routes: Routes = [
       { path: 'sobre-mi', component: AboutComponent },
     ],
   },
-  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: '**', redirectTo: 'inicio' },
 ];
 
 @NgModule({

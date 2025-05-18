@@ -13,7 +13,9 @@ $black: #0f0f0f;
   // background-color: $black !important;
   color: $light-gray !important;
 }
-
+body{
+  background-color: $black !important;
+}
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;

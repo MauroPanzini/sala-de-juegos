@@ -5,11 +5,13 @@ import { HangmanComponent } from './hangman/hangman.component';
 import { HigherLowerComponent } from './higher-lower/higher-lower.component';
 import { TriviaComponent } from './trivia/trivia.component';
 import { MinesweeperComponent } from './minesweeper/minesweeper.component';
+import { AuthGuard } from '../../core/guard/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: GamesComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'ahorcado', component: HangmanComponent },
       { path: 'preguntados', component: TriviaComponent },

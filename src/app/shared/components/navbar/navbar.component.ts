@@ -77,10 +77,10 @@ export class NavbarComponent implements OnInit {
 
   async logout() {
     try {
-      await signOut(this.auth); // Cierra la sesión de Firebase
-      this.userSession.clear(); // Limpia el almacenamiento local
+      await signOut(this.auth); 
+      this.userSession.clear(); 
       this.router.navigate(['/inicio']);
-      window.location.reload(); // Reinicia la app para limpiar estado visual
+      window.location.reload();
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
