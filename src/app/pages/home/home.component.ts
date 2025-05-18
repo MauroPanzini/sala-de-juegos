@@ -54,8 +54,8 @@ export class HomeComponent implements OnInit {
           {
             label: 'Partidas registradas',
             data,
-            backgroundColor: 'rgba(0, 255, 0, 0.5)',
-            borderColor: 'lime',
+            backgroundColor: 'rgba(92, 178, 84, 0.5)',
+            borderColor: 'rgba(92, 178, 84, 0.5)',
             borderWidth: 1,
           },
         ],
