@@ -1,0 +1,102 @@
+<div class="gif-container">
+  <div class="gif-container">
+    <img
+      src="../../../assets/salaDeJuegosLogin2.gif"
+      alt="Fondo animado"
+      class="background-gif"
+    />
+  </div>
+
+  <div class="terminal-container">
+    <div class="terminal-header">
+      <span class="tab" [class.active]="isLogin" (click)="showLogin()"
+        >Iniciar sesión</span
+      >
+      |
+      <span class="tab" [class.active]="!isLogin" (click)="showRegister()"
+        >Registrar cuenta</span
+      >
+    </div>
+    <div class="terminal-body">
+      <pre class="terminal-prompt">https://sala-de-juegos-57a52.web.app/$ salaDeJuegos.exe</pre>
+      <ng-container *ngIf="isLogin">
+        <pre class="terminal-line">Iniciando sistema...</pre>
+        <pre class="terminal-line">Cargando módulo de autenticación...</pre>
+        <pre class="terminal-line">Acceso permitido. Continúe.</pre>
+      </ng-container>
+
+      <ng-container *ngIf="!isLogin">
+        <pre class="terminal-line">Iniciando sistema de registros...</pre>
+        <pre class="terminal-line">Preparando nueva credencial...</pre>
+        <pre class="terminal-line">
+Bienvenido. Complete el formulario para crear su cuenta.</pre
+        >
+      </ng-container>
+
+
+      <!-- Pantalla de LOGIN -->
+      <ng-container *ngIf="isLogin">
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <label class="terminal-label">correo:</label>
+          <input
+            type="email"
+            formControlName="username"
+            class="terminal-input"
+            placeholder="usuario@ejemplo.com"
+          />
+          <label class="terminal-label">contraseña:</label>
+          <input
+            type="password"
+            formControlName="password"
+            class="terminal-input"
+            placeholder="********"
+          />
+          <button type="submit" class="terminal-button">Acceder</button>
+
+          <div class="button-container">
+            <button
+              type="button"
+              class="terminal-button"
+              (click)="fillAdminCredentials()"
+            >
+              Sudo su
+            </button>
+          </div>
+        </form>
+      </ng-container>
+
+      <!-- Pantalla de REGISTRO -->
+      <ng-container *ngIf="!isLogin">
+        <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+          <label class="terminal-label">correo:</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            class="terminal-input"
+            placeholder="usuario@ejemplo.com"
+            required
+          />
+          <label class="terminal-label">contraseña:</label>
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            class="terminal-input"
+            placeholder="********"
+            required
+          />
+
+          <div class="button-container">
+            <button type="submit" class="terminal-button">Registrar</button>
+          </div>
+        </form>
+      </ng-container>
+
+      <!-- Mensaje especial si el usuario es admin -->
+      <pre *ngIf="isAdmin" class="terminal-command">
+sudo su access Sala de Juegos</pre
+      >
+    </div>
+  </div>
+</div>

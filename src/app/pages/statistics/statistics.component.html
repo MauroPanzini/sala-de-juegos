@@ -1,1 +1,31 @@
-<p>statistics works!</p>
+<div class="stats-container">
+  <h2>🏆 Estadísticas - Top 10</h2>
+
+  <label for="game-select">Seleccionar juego:</label>
+  <select id="game-select" [(ngModel)]="selectedGame" (change)="onGameChange()">
+    <option *ngFor="let game of games" [value]="game">{{ game | titlecase }}</option>
+  </select>
+
+  <table *ngIf="topScores.length > 0; else noData">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Jugador</th>
+        <th>Puntaje</th>
+        <th>Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let score of topScores; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ score.name }}</td>
+        <td>{{ score.score }}</td>
+        <td>{{ score.date }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noData>
+    <p>No hay datos para este juego todavía.</p>
+  </ng-template>
+</div>

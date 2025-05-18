@@ -1,1 +1,32 @@
-<h1>Bienvenido, {{ userName }}!</h1>
+<h4 class="retro-title">Bienvenido, {{ userName }}!</h4>
+
+<div class="home-layout">
+  <!-- IZQUIERDA: Juegos -->
+  <div class="column">
+    <div class="card" (click)="navigateToGame('ahorcado')">Ahorcado</div>
+    <div class="card" (click)="navigateToGame('preguntados')">Preguntados</div>
+    <div class="card" (click)="navigateToGame('mayor-menor')">Mayor o Menor</div>
+    <div class="card" (click)="navigateToGame('buscaminas')">Buscaminas</div>
+  </div>
+
+  <!-- CENTRO: Puntaje y Chat -->
+  <div class="column center-column">
+    <div class="puntaje-mas-alto-card">
+      <h3>Juegos mas jugados</h3>
+       <canvas id="gameChart"></canvas>
+    </div>
+    <div class="card" (click)="goToChat()">
+      <h3>Chat</h3>
+      <p>Ingresa al chat global para compartir tus ideas!</p>
+    </div>
+  </div>
+
+  <!-- DERECHA: Configuración -->
+  <div class="column">
+    <div class="card" (click)="goToSettings()">
+      <h3>Configuración</h3>
+      <p>Preferencias del jugador, sonido, etc.</p>
+    </div>
+  </div>
+</div>
+

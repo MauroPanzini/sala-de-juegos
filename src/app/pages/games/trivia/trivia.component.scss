@@ -1,0 +1,65 @@
+@import "../../../../styles.scss";
+
+.game-card {
+  border: 3px solid $green;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  background-color: black;
+
+  button {
+    background-color: black;
+    color: $green; 
+    border: 2px solid $green;
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 20px;
+    cursor: pointer;
+
+    &.correct {
+      background-color: darkgreen;
+    }
+
+    &.wrong {
+      background-color: darkred;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+  button:hover {
+    background-color: darken($green, 20%); /* Slightly darker green */
+  }
+
+  .pokemon-img {
+    width: 200px;
+    height: 200px;
+    image-rendering: pixelated;
+    display: block;
+    margin: auto;
+  }
+  .options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+    gap: 15px; /* Espacio entre botones */
+    justify-content: center;
+    align-items: center;
+    max-width: 400px; /* Ancho máximo */
+    margin: auto; /* Centra el contenedor */
+  }
+  .options-button {
+    width: 100%; /* Que ocupe toda la celda */
+    text-align: center;
+  }
+
+  .start-container {
+    margin-top: 2rem;
+  }
+
+  .game-icon {
+    width: 25px;
+    image-rendering: pixelated;
+  }
+}

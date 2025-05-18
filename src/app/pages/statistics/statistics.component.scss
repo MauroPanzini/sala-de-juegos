@@ -1,0 +1,56 @@
+@import "../../../styles.scss";
+
+.stats-container {
+  background-color: black;
+  color: lime;
+  padding: 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  border: 2px solid $green;
+  border-radius: 8px;
+  max-width: 650px;
+  margin: 2rem auto;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  select {
+    background-color: black;
+    color: $green;
+    border: 1px solid $green;
+    padding: 0.4rem;
+    font-family: inherit;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+
+    th, td {
+      border: 1px solid $green;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    thead {
+      background-color: #003300;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: #001a00;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #002b00;
+    }
+  }
+
+  p {
+    text-align: center;
+    color: gray;
+  }
+}

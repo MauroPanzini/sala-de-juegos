@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { Firestore, doc, setDoc, collection, addDoc } from '@angular/fire/firestore';
-import { UserSessionService } from '../../services/user-session.service';
+import { UserSessionService } from '../../core/services/user-session.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({

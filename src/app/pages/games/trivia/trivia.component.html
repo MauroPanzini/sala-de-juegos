@@ -1,1 +1,56 @@
-<p>trivia works!</p>
+<div class="game-card">
+  <h2>Preguntados Pokémon</h2>
+
+  <!-- Pantalla inicial -->
+  <div class="" *ngIf="!gameStarted && !gameOver">
+    <p>¿Cuánto sabés sobre Pokémon?</p>
+    <button (click)="startGame()">Jugar</button>
+  </div>
+
+  <!-- Pantalla de juego -->
+  <div class="game" *ngIf="gameStarted">
+  <div class="left">
+    <img [src]="currentQuestion.image" class="pokemon-img" alt="Pokémon" />
+  </div>
+
+  <div class="right">
+    <p>{{ currentQuestion.question }}</p>
+
+    
+   <div class="game-info">
+  <p>
+    <img src="../../../../assets/retro_clock.png" alt="reloj de arena 8 bit" class="game-icon" />
+    Tiempo: <strong>{{ timer }}</strong> sec
+  </p>
+  <p>
+    <img src="../../../../assets/retro_error.png" alt="Errores" class="game-icon" />
+    Errores: <strong>{{ errors }} / {{ MAX_ERRORS }}</strong>
+  </p>
+</div>
+
+    <div class="options">
+      <button class="options-button"
+        *ngFor="let opt of currentQuestion?.options"
+        [disabled]="selectedAnswer"
+        [ngClass]="{
+          correct: showFeedback && opt === currentQuestion.correct_answer,
+          wrong: showFeedback && opt === selectedAnswer && opt !== currentQuestion.correct_answer
+        }"
+        (click)="selectAnswer(opt)"
+      >
+        {{ opt }}
+      </button>
+    </div>
+
+    <p>Puntaje: {{ score }}</p>
+  </div>
+</div>
+
+
+  <!-- Pantalla final -->
+  <div *ngIf="!gameStarted && gameOver" class="start-container">
+    <p>Tu puntaje final: {{ score }}</p>
+    <p *ngIf="newHighScoreMsg">{{ newHighScoreMsg }}</p>
+    <button (click)="restartGame()">Jugar de nuevo</button>
+  </div>
+</div>

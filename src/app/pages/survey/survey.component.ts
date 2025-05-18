@@ -3,8 +3,7 @@ import { Validators, FormBuilder, FormGroup, ReactiveFormsModule } from '@angula
 import { Firestore, collection, addDoc } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { UserSessionService } from '../../services/user-session.service';
-import { get } from 'http';
+import { UserSessionService } from '../../core/services/user-session.service';
 
 @Component({
   selector: 'app-survey',

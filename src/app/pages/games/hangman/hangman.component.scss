@@ -1,0 +1,60 @@
+@import '../../../../styles.scss';
+
+button {
+  background-color: black;
+  color: $green; /* Replacing hex with SCSS variable */
+  border: 2px solid $green;
+  padding: 10px 15px;
+  margin: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: darken($green, 20%); /* Slightly darker green */
+}
+
+.game-card {
+  border: 3px solid $green;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  background-color: black;
+}
+
+.game-dashes {
+  font-size: 2rem;
+  margin: 10px 0;
+  letter-spacing: 10px;
+  color: $yellow; /* Adds more retro contrast */
+}
+
+.letters button {
+  margin: 4px;
+  min-width: 40px;
+  background-color: transparent;
+  border: 2px solid $light-gray;
+  color: white;
+  cursor: pointer;
+  
+}
+.letters button:hover{
+  margin: 4px;
+  min-width: 40px;
+  background-color: transparent;
+  border: 2px solid $green;
+  color: white;
+  cursor: pointer;
+}
+
+.letters button.correct {
+  background-color: $green; // Color de fondo verde para correctas
+  border: 2px solid $green;
+  color: black; // Ajusta el color del texto para buen contraste
+}
+
+.letters button.wrong {
+  background-color: $red; // Color de fondo rojo para erróneas
+  border: 2px solid $red;
+  color: white;
+}

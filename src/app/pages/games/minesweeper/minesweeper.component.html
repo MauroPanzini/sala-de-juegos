@@ -1,0 +1,86 @@
+<!-- PANTALLA INICIAL -->
+<div *ngIf="!gameStarted && !gameOver" class="start-menu">
+  <h1>Buscaminas</h1>
+  <button class="button" (click)="startGame()">Jugar</button>
+</div>
+
+<!-- TABLERO SIEMPRE QUE EL JUEGO ESTÉ INICIADO -->
+<div *ngIf="gameStarted" class="game-container">
+  <!-- Cabecera -->
+  <div class="game-header">
+    <div class="header-item left">⏱️ {{ timer }}s</div>
+    <div class="header-item center">⭐ {{ score }}</div>
+    <div class="header-item right">💣 {{ minesLeft }}</div>
+  </div>
+  <div class="game-mode-selector">
+    <button [class.active]="mode === 'reveal'" (click)="changeMode('reveal')">
+      🖱️
+    </button>
+    <button [class.active]="mode === 'flag'" (click)="changeMode('flag')">
+      🚩
+    </button>
+    <button
+      [class.active]="mode === 'question'"
+      (click)="changeMode('question')"
+    >
+      ❓
+    </button>
+  </div>
+
+  <!-- TABLERO -->
+  <div class="minesweeper-container">
+    <div class="board">
+      <div *ngFor="let row of board; let i = index" class="row">
+        <div
+          *ngFor="let cell of row; let j = index"
+          class="cell"
+          [ngClass]="{
+            revealed: cell.revealed || (gameOver && cell.mine),
+            flagged: cell.flag,
+            questioned: cell.question,
+            mine: cell.revealed && cell.mine
+          }"
+          (click)="onCellClick(i, j)"
+        >
+          <ng-container *ngIf="cell.revealed || (gameOver && cell.mine)">
+            {{ cell.mine ? "💣" : cell.adjacentMines || "" }}
+          </ng-container>
+          <ng-container *ngIf="!cell.revealed && !(gameOver && cell.mine)">
+            {{ cell.flag ? "🚩" : cell.question ? "❓" : "" }}
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MENSAJE DE FIN DE JUEGO -->
+<div *ngIf="gameOver" class="start-menu">
+  <h2>¡Juego terminado!</h2>
+  <p>Puntaje final: {{ score }}</p>
+  <p *ngIf="newHighScoreMsg">{{ newHighScoreMsg }}</p>
+  <button (click)="restartGame()" class="button">Jugar de nuevo</button>
+  <div class="minesweeper-container">
+    <div class="board">
+      <div *ngFor="let row of board; let i = index" class="row">
+        <div
+          *ngFor="let cell of row; let j = index"
+          class="cell"
+          [ngClass]="{
+            revealed: cell.revealed || (gameOver && cell.mine),
+            flagged: cell.flag,
+            questioned: cell.question,
+            mine: cell.revealed && cell.mine
+          }"
+        >
+          <ng-container *ngIf="cell.revealed || (gameOver && cell.mine)">
+            {{ cell.mine ? "💣" : cell.adjacentMines || "" }}
+          </ng-container>
+          <ng-container *ngIf="!cell.revealed && !(gameOver && cell.mine)">
+            {{ cell.flag ? "🚩" : cell.question ? "❓" : "" }}
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

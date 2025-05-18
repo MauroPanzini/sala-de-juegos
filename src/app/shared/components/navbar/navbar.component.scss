@@ -1,0 +1,66 @@
+@import "../../../../styles.scss";
+
+.retro-navbar {
+  width: 80%;
+  height: 75px;
+  margin: 0 auto;
+  padding: 0 20px;
+  background-color: $black;
+  border: 2px solid $green;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.avatar-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 4px;
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+    image-rendering: pixelated;
+    border: 1px solid $green;
+  }
+
+  .username {
+    font-size: 0.75rem;
+    color: $yellow;
+    white-space: nowrap;
+  }
+}
+
+.menu {
+  display: flex;
+  gap: 24px;
+
+  .menu-item {
+    text-decoration: none;
+    color: $green;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.8rem;
+
+    .icon {
+      font-size: 1.4rem;
+    }
+
+    .label {
+      margin-top: 2px;
+    }
+  }
+}
+
+.logout {
+  padding-right: 4px;
+
+  .menu-item {
+    font-size: 0.8rem;
+    color: $red;
+  }
+}

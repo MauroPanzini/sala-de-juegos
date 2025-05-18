@@ -1,0 +1,60 @@
+@import "../../../styles.scss";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background-color: $black;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 80%;
+  height: 75px;
+  margin: 0.5rem auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  border: 2px solid $green;
+  background-color: $black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header h4 {
+  color: $green;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 0;
+  font-size: 1.5rem;
+  text-shadow: 2px 2px 0 #000;
+}
+
+main {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+footer {
+  flex: 0 0 auto;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  width: 100%;
+  margin: 0.5rem;
+  text-align: center;
+}

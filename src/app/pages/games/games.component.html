@@ -1,15 +1,14 @@
-<div class="gameboy">
-    <div class="screen">
-      <div class="carousel">
-        <div *ngFor="let game of games; let i = index" [class.active]="i === selectedGame">
-          <img [src]="game.image" [alt]="game.name" />
-          <p>{{ game.name }}</p>
-        </div>
-      </div>
+<div class="games-container" *ngIf="showCards">
+  <div class="games-container">
+    <div class="card" (click)="navigateToGame('ahorcado')">Ahorcado</div>
+    <div class="card" (click)="navigateToGame('preguntados')">Preguntados</div>
+    <div class="card" (click)="navigateToGame('mayor-menor')">
+      Mayor o Menor
     </div>
-    <div class="controls">
-      <button (click)="prevGame()">◀</button>
-      <button (click)="nextGame()">▶</button>
+    <div class="card" (click)="navigateToGame('buscaminas')">
+      Buscaminas
     </div>
   </div>
-  
+</div>
+
+<router-outlet></router-outlet>

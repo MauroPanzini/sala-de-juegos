@@ -1,1 +1,31 @@
-<p>higher-lower works!</p>
+<div class="retro-container">
+  <h2 class="retro-title">¿Mayor o Menor?</h2>
+
+  <div *ngIf="gameStarted" class="retro-game">
+    <div class="card-section">
+      <div class="playing-card" [ngClass]="{ 'shake': wrongGuess }">{{ card }}</div>
+      <div class="buttons">
+        <button (click)="mayorMenor('menor')">Menor</button>
+        <button (click)="mayorMenor('mayor')">Mayor</button>
+      </div>
+    </div>
+
+    <div class="status-section">
+      <div>Puntaje: {{ score }}</div>
+      <div>Intentos: {{ tries }}</div>
+    </div>
+  </div>
+
+  <div *ngIf="!gameStarted && !gameOver" class="start-section">
+    <button (click)="newGame()">Nuevo juego</button>
+  </div>
+
+  <!-- Pantalla final -->
+<div *ngIf="!gameStarted && gameOver" class="start-section">
+  <p>Tu puntaje final: {{ score }}</p>
+  <p *ngIf="newHighScoreMsg">{{ newHighScoreMsg }}</p>
+  <button (click)="newGame()">Jugar de nuevo</button>
+</div>
+
+</div>
+

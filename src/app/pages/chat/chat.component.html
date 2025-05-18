@@ -1,25 +1,63 @@
-<mat-card class="chat-container">
-    <ng-container *ngIf="isLoggedIn; else notLoggedIn">
-      <div class="messages">
-        <div *ngFor="let msg of messages$ | async" class="message">
-          <strong>{{ msg.email }}</strong>
-          <small>{{ msg.timestamp?.toDate() | date:'short' }}</small>
-          <p>{{ msg.message }}</p>
+<div class="chat-container">
+  <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+    <div class="messages" #messagesContainer>
+      <div
+        *ngFor="let msg of messages$ | async"
+        [ngClass]="{
+          'my-message': msg.email === user?.email,
+          'other-message': msg.email !== user?.email
+        }"
+        class="message"
+      >
+        <div>
+          <span class="message-header-email">{{ msg.email }}</span>
+          <span class="message-header-date">
+            [{{ msg.timestamp?.toDate() | date : "short" }}]</span
+          >
+        </div>
+
+        <div class="message-card">
+          <p class="message-text">{{ msg.message }}</p>
         </div>
       </div>
-  
+    </div>
+
+    <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="chat-form">
+      <!-- <input
+        type="text"
+        class="input-message"
+        placeholder="Escribe tu mensaje"
+        formControlName="message"
+      />
+      <button class="btn-send" type="submit" [disabled]="chatForm.invalid">
+        Enviar
+      </button> -->
       <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="chat-form">
-        <mat-form-field appearance="fill" class="input">
-          <input matInput placeholder="Escribe tu mensaje" formControlName="message">
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="chatForm.invalid">Enviar</button>
+        <div class="input-container">
+          <textarea
+            class="input-message"
+            placeholder="Escribe tu mensaje"
+            formControlName="message"
+            [rows]="1"
+            (input)="adjustTextArea($event)"
+          ></textarea>
+          <div
+            class="error"
+            *ngIf="chatForm.controls['message'].errors?.['maxlength']"
+          >
+            ¡Máximo 100 caracteres permitidos!
+          </div>
+        </div>
+        <button class="btn-send" type="submit" [disabled]="chatForm.invalid">
+          Enviar
+        </button>
       </form>
-    </ng-container>
-  
-    <ng-template #notLoggedIn>
-      <div class="not-logged-in">
-        <h3>¡Ingresa para chatear!</h3>
-      </div>
-    </ng-template>
-  </mat-card>
-  
+    </form>
+  </ng-container>
+
+  <ng-template #notLoggedIn>
+    <div class="not-logged-in">
+      <h3>¡Ingresa para chatear!</h3>
+    </div>
+  </ng-template>
+</div>

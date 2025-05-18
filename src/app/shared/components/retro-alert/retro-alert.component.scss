@@ -1,0 +1,37 @@
+.retro-alert {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  padding: 16px;
+  font-family: "Press Start 2P", monospace;
+  z-index: 1000;
+  text-align: center;
+  width: 300px;
+}
+
+.retro-alert button {
+  background-color: black;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  font-family: "Press Start 2P", monospace;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.retro-alert.success {
+  border-color: #00ff00;
+}
+
+.retro-alert.error {
+  border-color: red;
+  color: red;
+}
+
+.retro-alert.info {
+  border-color: cyan;
+  color: cyan;
+}

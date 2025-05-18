@@ -1,0 +1,88 @@
+@import "../../../styles.scss";
+
+.retro-title {
+  font-size: 2rem;
+  text-align: center;
+  color: $yellow;
+  margin-top: 20px;
+}
+
+.home-layout {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px;
+  gap: 24px;
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1;
+  }
+
+  .center-column {
+    align-items: center;
+  }
+}
+
+.card {
+  background-color: $black;
+  color: $green;
+  padding: 40px 20px;
+  height: 130px;
+  width: 500px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  text-align: center;
+  border: 2px solid $green;
+  box-shadow: 6px 6px 0 $black;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 8px 8px 0 $black;
+  }
+
+  h3 {
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+    color: $yellow;
+  }
+
+  p {
+    font-size: 1.1rem;
+  }
+}
+.puntaje-mas-alto-card {
+  background-color: $black;
+  color: $green;
+  padding: 40px 20px;
+  height: 450px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  text-align: center;
+  border: 2px solid $green;
+  box-shadow: 6px 6px 0 $black;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 8px 8px 0 $black;
+  }
+
+  h3 {
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+    color: $yellow;
+  }
+}

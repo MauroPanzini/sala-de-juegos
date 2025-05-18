@@ -6,17 +6,14 @@ import { AboutComponent } from './pages/about/about.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
 import { SurveyComponent } from './pages/survey/survey.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import { GamesComponent } from './pages/games/games.component';
-import { HangmanComponent } from './pages/games/hangman/hangman.component';
-import { TriviaComponent } from './pages/games/trivia/trivia.component';
-import { HigherLowerComponent } from './pages/games/higher-lower/higher-lower.component';
-import { ConnectFourComponent } from './pages/games/connect-four/connect-four.component';
+
 import { RegisterComponent } from './pages/register/register.component';
 import { ChatComponent } from './pages/chat/chat.component';
+import { AuthComponent } from './pages/auth/auth.component';
 
 export const routes: Routes = [
-  { path: 'iniciar-sesion', component: LoginComponent }, // Carga el componente standalone
-  { path: 'registro', component: RegisterComponent},
+  { path: 'iniciar-sesion', component: AuthComponent },
+  { path: 'registro', component: AuthComponent },
   {
     path: '',
     component: LayoutComponent,
@@ -24,22 +21,18 @@ export const routes: Routes = [
       { path: 'inicio', component: HomeComponent },
       {
         path: 'juegos',
-        component: GamesComponent,
-        children: [
-          { path: 'ahorcado', component: HangmanComponent },
-          { path: 'preguntados', component: TriviaComponent },
-          { path: 'mayor-menor', component: HigherLowerComponent },
-          { path: 'cuatro-en-linea', component: ConnectFourComponent },
-        ],
+        loadChildren: () =>
+          import('./pages/games/games.module').then((m) => m.GamesModule),
       },
-      { path: 'chat', component: ChatComponent},
+      { path: 'chat', component: ChatComponent },
       { path: 'estadisticas', component: StatisticsComponent },
       { path: 'encuesta', component: SurveyComponent },
       { path: 'sobre-mi', component: AboutComponent },
     ],
   },
-  { path: '', redirectTo: 'inicio', pathMatch: 'full' }, // Redirige s inivio por defecto
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

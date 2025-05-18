@@ -1,0 +1,29 @@
+<div class="retro-navbar">
+  <div class="avatar-container">
+    <img class="avatar" [src]="selectedAvatar" alt="Avatar 8-bit" />
+    <span class="username">{{ userEmail() || "Anónimo" }}</span>
+  </div>
+
+  <nav class="menu">
+    <a
+      *ngFor="let item of menuItems()"
+      [routerLink]="item.route"
+      class="menu-item"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <span class="label">{{ item.label }}</span>
+    </a>
+  </nav>
+
+  <div class="logout">
+    <a
+      *ngFor="let item of bottomItems()"
+      [routerLink]="item.route"
+      (click)="item.label === 'Salir' && logout()"
+      class="menu-item"
+    >
+      <span class="label">{{ item.label }}</span>
+    </a>
+  </div>
+</div>

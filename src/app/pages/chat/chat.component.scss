@@ -1,33 +1,138 @@
+@import "../../../styles.scss";
+
 .chat-container {
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 1rem;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+
   .messages {
-    max-height: 400px;
+    flex: 1;
     overflow-y: auto;
-    margin-bottom: 1rem;
+    max-height: 60vh;
+    max-width: 100vh;
+    padding: 1rem;
+    align-self: center;
+    background-color: #001f1f;
+    border: 2px solid $green;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
-  
+
   .message {
-    border-bottom: 1px solid #ccc;
-    padding: 0.5rem 0;
+    max-width: 50%;
+    padding: 0.5rem 1rem;
+    font-family: "Courier New", monospace;
+    word-wrap: break-word;
+    background-color: $black;
+    border: 1px solid $green;
+
+    .message-header-email {
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: $yellow !important;
+      margin-bottom: 4px;
+    }
+
+    .message-header-date {
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: $green !important;
+      margin-bottom: 4px;
+    }
+    .message-text {
+      font-size: 0.95rem;
+      color: $green;
+    }
   }
-  
+
+  .my-message {
+    align-self: flex-end;
+    background-color: #002b00;
+    border-color: $yellow;
+
+    .message-text {
+      color: $yellow;
+    }
+
+    .message-header {
+      color: $green;
+    }
+  }
+
+  .other-message {
+    align-self: flex-start;
+  }
+
   .chat-form {
     display: flex;
     gap: 1rem;
-    align-items: flex-end;
+    margin-top: 1rem;
+    align-self: center;
+
+    .input-message {
+      resize: none;
+      overflow-y: hidden;
+      min-height: 40px;
+      flex-grow: 1;
+      max-width: 90vh;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 2px solid $green;
+      color: $green;
+      background-color: $black;
+
+      &:focus {
+        border-color: $yellow;
+      }
+    }
+    .input-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    // .input-message {
+    //   resize: none;
+    //   overflow-y: hidden;
+    //   min-height: 40px;
+    // }
+    .error {
+      color: red;
+      font-size: 0.8rem;
+      margin-top: 4px;
+    }
+    .chat-form {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-send {
+      flex-shrink: 0;
+      background-color: $green;
+      border: 2px solid $green;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: $yellow;
+        border-color: $yellow;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
   }
-  
-  .input {
-    flex-grow: 1;
-  }
+
   .not-logged-in {
+    border: 2px solid $green;
+    color: $red;
+    font-family: "Courier New", monospace;
     text-align: center;
-    color: #888;
-    font-size: 1.2rem;
-    padding: 2rem 0;
+    margin-top: 2rem;
   }
-  
+}

@@ -8,7 +8,7 @@ import { inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'; // para mostrar mensajes
-import { UserSessionService } from '../../services/user-session.service'; // tu servicio
+import { UserSessionService } from '../../core/services/user-session.service'; // tu servicio
 
 @Component({
   selector: 'app-register',
