@@ -4,15 +4,15 @@
       <div
         *ngFor="let msg of messages$ | async"
         [ngClass]="{
-          'my-message': msg.email === user?.email,
-          'other-message': msg.email !== user?.email
+          'my-message': msg.email === userEmail,
+          'other-message': msg.email !== userEmail
         }"
         class="message"
       >
         <div>
           <span class="message-header-email">{{ msg.email }}</span>
           <span class="message-header-date">
-            [{{ msg.timestamp?.toDate() | date : "short" }}]</span
+            [{{ msg.timestamp?.toDate() | date: 'short' }}]</span
           >
         </div>
 
@@ -23,26 +23,24 @@
     </div>
 
     <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="chat-form">
-      <form [formGroup]="chatForm" (ngSubmit)="sendMessage()" class="chat-form">
-        <div class="input-container">
-          <textarea
-            class="input-message"
-            placeholder="Escribe tu mensaje"
-            formControlName="message"
-            [rows]="1"
-            (input)="adjustTextArea($event)"
-          ></textarea>
-          <div
-            class="error"
-            *ngIf="chatForm.controls['message'].errors?.['maxlength']"
-          >
-            ¡Máximo 100 caracteres permitidos!
-          </div>
+      <div class="input-container">
+        <textarea
+          class="input-message"
+          placeholder="Escribe tu mensaje"
+          formControlName="message"
+          [rows]="1"
+          (input)="adjustTextArea($event)"
+        ></textarea>
+        <div
+          class="error"
+          *ngIf="chatForm.controls['message'].errors?.['maxlength']"
+        >
+          ¡Máximo 100 caracteres permitidos!
         </div>
-        <button class="btn-send" type="submit" [disabled]="chatForm.invalid">
-          Enviar
-        </button>
-      </form>
+      </div>
+      <button class="btn-send" type="submit" [disabled]="chatForm.invalid">
+        Enviar
+      </button>
     </form>
   </ng-container>
 

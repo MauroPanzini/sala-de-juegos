@@ -1,12 +1,12 @@
 import { Component, inject, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Firestore, collection, addDoc, query, orderBy, collectionData } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { UserSessionService } from '../../core/services/user-session.service';
 
 @Component({
   selector: 'app-chat',
@@ -16,52 +16,53 @@ import { MatInputModule } from '@angular/material/input';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
-  private auth = inject(Auth);
   private firestore = inject(Firestore);
   private fb = inject(FormBuilder);
+  private userSessionService = inject(UserSessionService);
 
   @ViewChild('messagesContainer') messagesContainer!: ElementRef;
 
   chatForm!: FormGroup;
   messages$!: Observable<any[]>;
-  user: User | null = null;
   isLoggedIn = false;
+  userEmail: string | null = null;
 
   ngOnInit(): void {
     this.chatForm = this.fb.group({
       message: ['', [Validators.required, Validators.maxLength(100)]]
     });
 
-    onAuthStateChanged(this.auth, (user) => {
-      this.user = user;
-      this.isLoggedIn = !!user;
+    this.isLoggedIn = this.userSessionService.isLoggedIn();
+    
+    console.log(this.isLoggedIn);
+    console.log(this.userSessionService.getUserName);
 
-      if (this.isLoggedIn) {
-        const messagesRef = collection(this.firestore, 'chat-messages');
-        const messagesQuery = query(messagesRef, orderBy('timestamp', 'asc'));
-        this.messages$ = collectionData(messagesQuery, { idField: 'id' });
+    this.userEmail = this.userSessionService.getUserEmail();
 
-        
-        this.messages$.subscribe(() => {
-          setTimeout(() => this.scrollToBottom(), 100);
-        });
-      }
-    });
+    if (this.isLoggedIn && this.userEmail) {
+      const messagesRef = collection(this.firestore, 'chat-messages');
+      const messagesQuery = query(messagesRef, orderBy('timestamp', 'asc'));
+      this.messages$ = collectionData(messagesQuery, { idField: 'id' });
+
+      this.messages$.subscribe(() => {
+        setTimeout(() => this.scrollToBottom(), 100);
+      });
+    }
   }
 
   adjustTextArea(event: Event) {
-  const target = event.target as HTMLTextAreaElement;
-  target.style.height = 'auto';
-  target.style.height = `${target.scrollHeight}px`;
+    const target = event.target as HTMLTextAreaElement;
+    target.style.height = 'auto';
+    target.style.height = `${target.scrollHeight}px`;
   }
 
   async sendMessage() {
     const messageContent = this.chatForm.get('message')?.value;
-    if (!this.user || !messageContent) return;
+    if (!this.userEmail || !messageContent) return;
 
     await addDoc(collection(this.firestore, 'chat-messages'), {
       message: messageContent,
-      email: this.user.email,
+      email: this.userEmail,
       timestamp: new Date()
     });
 

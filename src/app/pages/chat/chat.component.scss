@@ -37,7 +37,7 @@
 
     .message-header-date {
       justify-content: space-between;
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       color: $green !important;
       margin-bottom: 4px;
     }
@@ -130,8 +130,8 @@
     align-content: center;
     border: 2px solid $green;
     color: $red;
-    font-family: "Courier New", monospace;
     text-align: center;
     margin-top: 2rem;
+    background-color: $black;
   }
 }
