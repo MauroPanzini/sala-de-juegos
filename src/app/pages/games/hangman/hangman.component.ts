@@ -14,12 +14,11 @@ export class HangmanComponent {
   showRetroAlert = false;
   retroType: 'success' | 'error' | 'info' = 'info';
   score: number = 0;
-  // Propiedades nuevas para mostrar el puntaje final y el mensaje si es un puntaje alto.
+
   finalScore: number = 0;
   newHighScoreMsg: string = '';
   gameStarted: boolean = false;
 
-  // Para almacenar el estado de cada letra ('correct' o 'wrong')
   letterStates: { [letter: string]: 'correct' | 'wrong' } = {};
 
   letters = [
@@ -43,9 +42,8 @@ export class HangmanComponent {
     'farmaceutico'
   ];
 
-  // Arreglo que contendrá las palabras mezcladas
   shuffledWords: string[] = [];
-  // Índice para recorrer el arreglo de palabras mezcladas
+
   currentWordIndex: number = 0;
   wordToGuess: string = '';
   pictureNumber: number = 0;
@@ -72,13 +70,12 @@ export class HangmanComponent {
     this.finalScore = 0;
     this.newHighScoreMsg = '';
     this.currentWordIndex = 0;
-    // Mezcla el arreglo de palabras
+
     this.shuffleWords();
     this.gameStarted = true;
     this.startGame();
   }
 
-  // Función que mezcla el arreglo de palabras usando el algoritmo Fisher-Yates
   shuffleWords(): void {
     this.shuffledWords = [...this.words];
     for (let i = this.shuffledWords.length - 1; i > 0; i--) {
@@ -141,10 +138,9 @@ export class HangmanComponent {
     }
   }
 
-  // Método que finaliza el juego: guarda el puntaje, consulta la leaderboard y muestra el mensaje si corresponde.
   endGame(): void {
   this.gameStarted = false;
-  this.gameFinished = true; // << NUEVO
+  this.gameFinished = true; 
   this.finalScore = this.score;
   this.saveScore();
   this.gameScoreService.getLeaderboard('Ahorcado', 10)
@@ -154,14 +150,13 @@ export class HangmanComponent {
         qualifies = true;
       } else {
         const minScore = Math.min(...leaderboard.map(s => s.score));
-        qualifies = this.score >= minScore;
+        qualifies = this.score > minScore;
       }
       this.newHighScoreMsg = qualifies ? '¡Nuevo puntaje más alto!' : '';
     });
   this.showAlert('info', 'Juego finalizado');
 }
 
-  // Llamamos a endGame para detener el juego
   stopGame(): void {
     this.endGame();
   }

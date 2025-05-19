@@ -2,12 +2,12 @@
 
 .stats-container {
   background-color: black;
-  color: lime;
+  color: $green;
   padding: 1rem;
   font-family: 'Courier New', Courier, monospace;
   border: 2px solid $green;
   border-radius: 8px;
-  max-width: 650px;
+  max-width: 800px;
   margin: 2rem auto;
 
   h2 {

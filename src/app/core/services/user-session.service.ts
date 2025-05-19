@@ -49,6 +49,6 @@ export class UserSessionService {
     return null;
   }
   isLoggedIn(): boolean {
-    return sessionStorage.getItem('userEmail') !== null;
-  }
+  return this.isBrowser() && sessionStorage.getItem(this.USER_EMAIL_KEY) !== null;
+}
 }

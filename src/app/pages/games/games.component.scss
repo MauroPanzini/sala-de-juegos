@@ -6,22 +6,22 @@
   gap: 24px;
   justify-content: center;
   align-items: center;
-  height: 80vh;
+  height: 77vh;
 }
 
 .card {
-  background-color: $black; /* Usando el negro retro */
-  color: $green; /* Texto con verde brillante */
+  background-color: $black; 
+  color: $green; 
   padding: 60px 30px;
-  width: 350px; /* Tamaño fijo para todas las cards */
-  height: 250px; /* Altura uniforme */
+  width: 350px; 
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.4rem;
   text-align: center;
-  border: 6px solid $green; /* Bordes con el verde fuerte */
-  box-shadow: 6px 6px 0 $black; /* Sombras acorde al fondo */
+  border: 6px solid $green; 
+  box-shadow: 6px 6px 0 $black;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
 }

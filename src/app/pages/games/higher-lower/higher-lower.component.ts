@@ -76,7 +76,7 @@ export class HigherLowerComponent {
           qualifies = true;
         } else {
           const minScore = Math.min(...leaderboard.map((s) => s.score));
-          qualifies = this.score >= minScore;
+          qualifies = this.score > minScore;
         }
         this.newHighScoreMsg = qualifies ? '¡Nuevo puntaje más alto!' : '';
       });

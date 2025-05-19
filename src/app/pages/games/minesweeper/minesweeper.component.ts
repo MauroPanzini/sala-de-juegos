@@ -26,7 +26,7 @@ export class MinesweeperComponent implements OnInit {
   board: Cell[][] = [];
 
   mode: 'reveal' | 'flag' | 'question' = 'reveal';
-
+  maxScore = 1000;
   score = 0;
   timer = 0;
   intervalId: any;
@@ -120,7 +120,7 @@ export class MinesweeperComponent implements OnInit {
     if (cell.revealed) return;
 
     if (this.mode === 'reveal') {
-      if (cell.mine) {
+      if (cell.mine && !cell.flag) {
         this.revealAll();
         clearInterval(this.intervalId);
         this.endGame();
@@ -128,22 +128,24 @@ export class MinesweeperComponent implements OnInit {
       }
       this.revealCell(row, col);
     } else if (this.mode === 'flag') {
-      cell.flag = !cell.flag;
-      cell.question = false;
-      if(cell.flag){
-        this.minesLeft--;
+      if(this.minesLeft == 0 && !cell.flag){
       }
       else{
-        this.minesLeft++;
+        cell.flag = !cell.flag;
+        cell.question = false;
+        if (cell.flag) {
+          this.minesLeft--;
+        } else {
+          this.minesLeft++;
+        }
       }
     } else if (this.mode === 'question') {
-      
-        if (cell.question) {
+      if (cell.question) {
         cell.question = false;
       } else {
-          if(cell.flag){
-              this.minesLeft++;
-          }
+        if (cell.flag) {
+          this.minesLeft++;
+        }
         cell.flag = false;
         cell.question = true;
       }
@@ -199,7 +201,8 @@ export class MinesweeperComponent implements OnInit {
   }
 
   winGame() {
-    this.score += 100; // SUMAR 100 puntos por ganar
+    this.score += 100;
+    this.score += Math.round(this.maxScore / this.timer);
     this.endGame();
   }
 
@@ -212,12 +215,11 @@ export class MinesweeperComponent implements OnInit {
     this.gameScoreService
       .getLeaderboard('Buscaminas', 10)
       .subscribe((leaderboard) => {
-          console.log(leaderboard);
         if (leaderboard.length < 10) {
           qualifies = true;
         } else {
           const minScore = Math.min(...leaderboard.map((s) => s.score));
-          qualifies = this.score >= minScore;
+          qualifies = this.score > minScore;
         }
         this.newHighScoreMsg = qualifies ? '¡Nuevo puntaje más alto!' : '';
       });

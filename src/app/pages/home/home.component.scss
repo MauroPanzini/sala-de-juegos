@@ -104,6 +104,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  padding-bottom: 10%;
 }
 
 .gif-options img {
@@ -113,7 +114,11 @@
   border: 2px solid transparent;
   border-radius: 6px;
 }
-
+.button{
+  display: flex;
+  border: 2px solid $green;
+  background-color: $black;
+}
 .gif-options img.selected {
   border-color: $green;
 }

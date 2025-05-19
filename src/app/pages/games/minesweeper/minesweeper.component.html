@@ -14,16 +14,28 @@
   </div>
   <div class="game-mode-selector">
     <button [class.active]="mode === 'reveal'" (click)="changeMode('reveal')">
-      🖱️
+      <img
+        src="../../../../assets/icons/cursor.png"
+        alt="Cursor"
+        class="icon-button"
+      />
     </button>
     <button [class.active]="mode === 'flag'" (click)="changeMode('flag')">
-      🚩
+      <img
+        src="../../../../assets/icons/flag.png"
+        alt="Bandera"
+        class="icon-button"
+      />
     </button>
     <button
       [class.active]="mode === 'question'"
       (click)="changeMode('question')"
     >
-      ❓
+      <img
+        src="../../../../assets/icons/question.png"
+        alt="Pregunta"
+        class="icon-button"
+      />
     </button>
   </div>
 
@@ -43,10 +55,27 @@
           (click)="onCellClick(i, j)"
         >
           <ng-container *ngIf="cell.revealed || (gameOver && cell.mine)">
-            {{ cell.mine ? "💣" : cell.adjacentMines || "" }}
+            <img
+              *ngIf="cell.mine"
+              src="../../../../assets/icons/mine.png"
+              alt="Mina"
+              class="mine-icon"
+            />
+            <span *ngIf="!cell.mine">{{ cell.adjacentMines || "" }}</span>
           </ng-container>
           <ng-container *ngIf="!cell.revealed && !(gameOver && cell.mine)">
-            {{ cell.flag ? "🚩" : cell.question ? "❓" : "" }}
+            <img
+              *ngIf="cell.flag"
+              src="../../../../assets/icons/flag.png"
+              alt="Bandera"
+              class="mine-icon"
+            />
+            <img
+              *ngIf="cell.question"
+              src="../../../../assets/icons/question.png"
+              alt="Pregunta"
+              class="mine-icon"
+            />
           </ng-container>
         </div>
       </div>
@@ -74,10 +103,27 @@
           }"
         >
           <ng-container *ngIf="cell.revealed || (gameOver && cell.mine)">
-            {{ cell.mine ? "💣" : cell.adjacentMines || "" }}
+            <img
+              *ngIf="cell.mine"
+              src="../../../../assets/icons/mine.png"
+              alt="Mina"
+              class="mine-icon"
+            />
+            <span *ngIf="!cell.mine">{{ cell.adjacentMines || "" }}</span>
           </ng-container>
           <ng-container *ngIf="!cell.revealed && !(gameOver && cell.mine)">
-            {{ cell.flag ? "🚩" : cell.question ? "❓" : "" }}
+            <img
+              *ngIf="cell.flag"
+              src="../../../../assets/icons/flag.png"
+              alt="Bandera"
+              class="mine-icon"
+            />
+            <img
+              *ngIf="cell.question"
+              src="../../../../assets/icons/question.png"
+              alt="Pregunta"
+              class="mine-icon"
+            />
           </ng-container>
         </div>
       </div>
