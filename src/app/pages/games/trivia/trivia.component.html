@@ -2,13 +2,13 @@
   <h2>Preguntados Pokémon</h2>
 
   <!-- Pantalla inicial -->
-  <div class="" *ngIf="!gameStarted && !gameOver">
+  <div *ngIf="!gameStarted && !gameOver">
     <p>¿Cuánto sabés sobre Pokémon?</p>
     <button (click)="startGame()">Jugar</button>
   </div>
 
   <!-- Pantalla de juego -->
-  <div class="game" *ngIf="gameStarted">
+  <div class="game" *ngIf="gameStarted && currentQuestion">
   <div class="left">
     <img [src]="currentQuestion.image" class="pokemon-img" alt="Pokémon" />
   </div>

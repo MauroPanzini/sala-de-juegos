@@ -9,7 +9,22 @@
   margin: 40px auto;
   text-align: center;
 }
-
+.game-card {
+  border: 3px solid $green;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  background-color: black;
+}
+button {
+  background-color: black;
+  color: $green; /* Replacing hex with SCSS variable */
+  border: 2px solid $green;
+  padding: 10px 15px;
+  margin: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
 .retro-title {
   font-size: 1.5rem;
   margin-bottom: 20px;

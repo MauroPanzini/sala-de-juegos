@@ -54,7 +54,7 @@ export class TriviaComponent implements OnInit {
     this.triviaService.getQuestions().subscribe((questions) => {
       this.questions = questions;
       this.currentQuestion = this.questions[this.currentIndex];
-      this.startTimer(); // Iniciar el temporizador al comenzar
+      this.startTimer(); 
     });
   }
   startTimer() {

@@ -1,4 +1,4 @@
-<div class="retro-container">
+<div class="game-card">
   <h2 class="retro-title">¿Mayor o Menor?</h2>
 
   <div *ngIf="gameStarted" class="retro-game">
@@ -16,15 +16,15 @@
     </div>
   </div>
 
-  <div *ngIf="!gameStarted && !gameOver" class="start-section">
+  <div *ngIf="!gameStarted && !gameOver" class="button">
     <button (click)="newGame()">Nuevo juego</button>
   </div>
 
   <!-- Pantalla final -->
-<div *ngIf="!gameStarted && gameOver" class="start-section">
+<div *ngIf="!gameStarted && gameOver" >
   <p>Tu puntaje final: {{ score }}</p>
   <p *ngIf="newHighScoreMsg">{{ newHighScoreMsg }}</p>
-  <button (click)="newGame()">Jugar de nuevo</button>
+  <button class="button"(click)="newGame()">Jugar de nuevo</button>
 </div>
 
 </div>
