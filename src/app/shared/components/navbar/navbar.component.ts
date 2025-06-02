@@ -3,6 +3,8 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { Auth, signOut } from '@angular/fire/auth';
 import { Router, RouterModule } from '@angular/router';
 import { UserSessionService } from '../../../core/services/user-session.service';
+import { SoundService } from '../../../core/services/sound.service';
+import { SoundSettingsService } from '../../../core/services/sound-settings.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +14,7 @@ import { UserSessionService } from '../../../core/services/user-session.service'
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
+  isMusicEnabled = signal(true);
   private auth = inject(Auth);
   userEmail = signal<string | null>(null);
   userName = signal<string | null>(null);
@@ -31,14 +34,19 @@ export class NavbarComponent implements OnInit {
     '../../assets/avatars/avatar3.png',
     '../../assets/avatars/avatar4.png',
     '../../assets/avatars/avatar5.png',
-    '../../assets/avatars/avatar6.png'
+    '../../assets/avatars/avatar6.png',
   ];
 
   selectedAvatar: string = '';
 
   bottomItems = signal<{ label: string; route?: string }[]>([]);
 
-  constructor(private router: Router, private userSession: UserSessionService) {
+  constructor(
+    private router: Router,
+    private userSession: UserSessionService,
+    private soundService: SoundService,
+    private soundSettings: SoundSettingsService
+  ) {
     const email = this.userSession.getUserEmail();
     const name = this.userSession.getUserName();
 
@@ -46,21 +54,20 @@ export class NavbarComponent implements OnInit {
       this.userEmail.set(email);
       this.userName.set(name ?? email.split('@')[0]);
 
-      this.bottomItems.set([
-        { label: 'Salir', route: '/inicio' }
-      ]);
+      this.bottomItems.set([{ label: 'Salir', route: '/inicio' }]);
     } else {
       this.userName.set('Anonimo');
 
-      this.bottomItems.set([
-        { label: 'Ingresar', route: '/iniciar-sesion' }
-      ]);
+      this.bottomItems.set([{ label: 'Ingresar', route: '/iniciar-sesion' }]);
     }
   }
 
   ngOnInit() {
     const currentUserName = this.userName();
 
+    this.soundSettings.isMusicEnabled().subscribe((enabled) => {
+      this.isMusicEnabled.set(enabled);
+    });
     const existingAvatar = this.userSession.getUserAvatar();
 
     if (currentUserName === 'admin') {
@@ -74,11 +81,13 @@ export class NavbarComponent implements OnInit {
       this.userSession.setUserAvatar(this.selectedAvatar);
     }
   }
-
+  toggleMusic(): void {
+    this.soundSettings.toggleMusic();
+  }
   async logout() {
     try {
-      await signOut(this.auth); 
-      this.userSession.clear(); 
+      await signOut(this.auth);
+      this.userSession.clear();
       this.router.navigate(['/inicio']);
       window.location.reload();
     } catch (error) {

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GameScoreService, Score } from '../../../core/services/game-score.service';
 import { UserSessionService } from '../../../core/services/user-session.service';
+import { SoundService } from '../../../core/services/sound.service';
+import { SoundSettingsService } from '../../../core/services/sound-settings.service';
 
 @Component({
   selector: 'app-hangman',
@@ -51,7 +53,9 @@ export class HangmanComponent {
   constructor(
     private router: Router,
     private gameScoreService: GameScoreService,
-    private userSessionService: UserSessionService
+    private userSessionService: UserSessionService,
+    private soundService: SoundService,
+    private soundSettings: SoundSettingsService
   ) {}
 
   ngOnInit(): void {}
@@ -112,10 +116,18 @@ export class HangmanComponent {
 
     if (!found) {
       this.tries--;
-      this.pictureNumber++;
+      if(this.soundSettings.isUXEnabledValue()){
+        this.soundService.play('accionNegativa');
+      }
       if (this.tries === 0) {
         this.endGame();
         return;
+      }
+    }
+    else{
+      if(this.soundSettings.isUXEnabledValue()){
+        this.soundService.play('accionPositiva')
+
       }
     }
     this.checkWinner();

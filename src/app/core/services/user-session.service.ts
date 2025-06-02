@@ -49,6 +49,36 @@ export class UserSessionService {
     return null;
   }
   isLoggedIn(): boolean {
-  return this.isBrowser() && sessionStorage.getItem(this.USER_EMAIL_KEY) !== null;
-}
+    return (
+      this.isBrowser() && sessionStorage.getItem(this.USER_EMAIL_KEY) !== null
+    );
+  }
+  private readonly UX_SOUND_KEY = 'userUXSound';
+  private readonly MUSIC_SOUND_KEY = 'userMusicSound';
+
+  setMusicPreferences(enabled: boolean): void {
+    if (this.isBrowser()) {
+      sessionStorage.setItem(this.MUSIC_SOUND_KEY, enabled.toString());
+    }
+  }
+
+  getMusicPreferences(): boolean {
+    if (this.isBrowser()) {
+      return sessionStorage.getItem(this.MUSIC_SOUND_KEY) !== 'false';
+    }
+    return true;
+  }
+
+  setUXPreferences(enabled: boolean): void {
+    if (this.isBrowser()) {
+      sessionStorage.setItem(this.UX_SOUND_KEY, enabled.toString());
+    }
+  }
+
+  getUXPreferences(): boolean {
+    if (this.isBrowser()) {
+      return sessionStorage.getItem(this.UX_SOUND_KEY) !== 'false';
+    }
+    return true;
+  }
 }

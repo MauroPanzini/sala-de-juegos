@@ -4,6 +4,8 @@ import {
   Score,
 } from '../../../core/services/game-score.service';
 import { UserSessionService } from '../../../core/services/user-session.service';
+import { SoundService } from '../../../core/services/sound.service';
+import { SoundSettingsService } from '../../../core/services/sound-settings.service';
 
 type Cell = {
   revealed: boolean;
@@ -35,7 +37,9 @@ export class MinesweeperComponent implements OnInit {
   newHighScoreMsg = '';
   constructor(
     private gameScoreService: GameScoreService,
-    private userSessionService: UserSessionService
+    private userSessionService: UserSessionService,
+    private soundService: SoundService,
+    private soundSettings: SoundSettingsService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +47,7 @@ export class MinesweeperComponent implements OnInit {
   }
 
   startGame() {
+    this.soundService.stop('explosion');
     this.resetGame();
     this.generateMines();
     this.calculateAdjacents();
@@ -65,6 +70,7 @@ export class MinesweeperComponent implements OnInit {
     this.timer = 0;
     this.gameOver = false;
     clearInterval(this.intervalId);
+    
   }
 
   changeMode(mode: 'reveal' | 'flag' | 'question') {
@@ -135,6 +141,9 @@ export class MinesweeperComponent implements OnInit {
         cell.question = false;
         if (cell.flag) {
           this.minesLeft--;
+          if(this.soundSettings.isUXEnabledValue()){
+            this.soundService.play('flag')
+          }
         } else {
           this.minesLeft++;
         }
@@ -177,12 +186,18 @@ export class MinesweeperComponent implements OnInit {
   }
 
   revealAll() {
-    for (let row of this.board) {
-      for (let cell of row) {
+  for (let row of this.board) {
+    for (let cell of row) {
+      
+      if (this.soundSettings.isUXEnabledValue() && cell.mine) {
         cell.revealed = true;
-      }
+        this.soundService.play('explosion');
+      } 
     }
   }
+}
+
+
 
   checkWinCondition() {
     let unrevealedCells = 0;

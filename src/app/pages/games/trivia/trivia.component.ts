@@ -6,6 +6,8 @@ import {
   Score,
 } from '../../../core/services/game-score.service';
 import { UserSessionService } from '../../../core/services/user-session.service';
+import { SoundService } from '../../../core/services/sound.service';
+import { SoundSettingsService } from '../../../core/services/sound-settings.service';
 
 @Component({
   selector: 'app-trivia',
@@ -20,11 +22,11 @@ export class TriviaComponent implements OnInit {
   gameOver = false;
   gameStarted = false;
 
-  timer!: number; // Segundos restantes
-  timerInterval!: any; // Referencia al intervalo
-  errors: number = 0; // Contador de errores
-  MAX_ERRORS = 3; // Límite de errores
-  MAX_TIME = 10; // Tiempo máximo por pregunta
+  timer!: number;
+  timerInterval!: any;
+  errors: number = 0;
+  MAX_ERRORS = 3;
+  MAX_TIME = 10;
 
   selectedAnswer: string | null = null;
   showFeedback = false;
@@ -34,7 +36,9 @@ export class TriviaComponent implements OnInit {
   constructor(
     private triviaService: TriviaService,
     private gameScoreService: GameScoreService,
-    private userSessionService: UserSessionService
+    private userSessionService: UserSessionService,
+    private soundService: SoundService,
+    private soundSettings: SoundSettingsService
   ) {}
 
   ngOnInit(): void {
@@ -54,11 +58,11 @@ export class TriviaComponent implements OnInit {
     this.triviaService.getQuestions().subscribe((questions) => {
       this.questions = questions;
       this.currentQuestion = this.questions[this.currentIndex];
-      this.startTimer(); 
+      this.startTimer();
     });
   }
   startTimer() {
-    this.timer = this.MAX_TIME; // Reseteamos el tiempo a 10 seg
+    this.timer = this.MAX_TIME; 
     this.timerInterval = setInterval(() => {
       this.timer--;
       if (this.timer === 0) {
@@ -68,25 +72,31 @@ export class TriviaComponent implements OnInit {
     }, 1000);
   }
   handleTimeout() {
-    this.errors++; // Incrementa el contador de errores
+    this.errors++; 
     if (this.errors >= this.MAX_ERRORS) {
-      this.endGame(); // Termina el juego si se supera el límite
+      this.endGame();
     } else {
-      this.nextQuestion(); // Pasa a la siguiente pregunta
+      this.nextQuestion(); 
     }
   }
 
   selectAnswer(answer: string) {
     if (this.selectedAnswer) return;
 
-    clearInterval(this.timerInterval); // Detener el temporizador
+    clearInterval(this.timerInterval); 
     this.selectedAnswer = answer;
     this.showFeedback = true;
 
     if (answer === this.currentQuestion.correct_answer) {
-      this.score += this.timer; 
+      if(this.soundSettings.isUXEnabledValue()){
+        this.soundService.play('accionPositiva');
+      }
+      this.score += this.timer;
     } else {
-      this.errors++; // Sumar error si falla
+      if(this.soundSettings.isUXEnabledValue()){
+        this.soundService.play('accionNegativa');
+      }
+      this.errors++; 
       if (this.errors >= this.MAX_ERRORS) {
         this.endGame();
         return;
@@ -105,7 +115,7 @@ export class TriviaComponent implements OnInit {
       this.endGame();
     } else {
       this.currentQuestion = this.questions[this.currentIndex];
-      this.startTimer(); 
+      this.startTimer();
     }
   }
 
@@ -118,10 +128,8 @@ export class TriviaComponent implements OnInit {
       localStorage.setItem('triviaHighScore', this.highScore.toString());
     }
 
-    // Guardar el score
     this.saveScore();
 
-    // Verificar si es nuevo high score en el top 10
     this.gameScoreService
       .getLeaderboard('Preguntados', 10)
       .subscribe((leaderboard) => {

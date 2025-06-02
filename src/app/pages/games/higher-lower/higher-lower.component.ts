@@ -5,6 +5,8 @@ import {
   Score,
 } from '../../../core/services/game-score.service';
 import { UserSessionService } from '../../../core/services/user-session.service';
+import { SoundService } from '../../../core/services/sound.service';
+import { SoundSettingsService } from '../../../core/services/sound-settings.service';
 
 @Component({
   selector: 'app-higher-lower',
@@ -24,7 +26,9 @@ export class HigherLowerComponent {
   constructor(
     private router: Router,
     private gameScoreService: GameScoreService,
-    private userSessionService: UserSessionService
+    private userSessionService: UserSessionService,
+    private soundService: SoundService,
+    private soundSettings: SoundSettingsService
   ) {}
 
   ngOnInit(): void {}
@@ -43,14 +47,20 @@ export class HigherLowerComponent {
       (opcion === 'menor' && this.nextCard < this.card);
 
     if (correcto) {
+      if(this.soundSettings.isUXEnabledValue()){
+        this.soundService.play('accionPositiva');
+      }
       this.score++;
     } else {
+      if(this.soundSettings.isUXEnabledValue()){
+        this.soundService.play('accionNegativa');
+      }
       this.tries--;
       this.wrongGuess = true;
 
       setTimeout(() => {
-      this.wrongGuess = false;
-    }, 500);
+        this.wrongGuess = false;
+      }, 500);
     }
 
     this.card = this.nextCard;

@@ -30,7 +30,7 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              "src/favicon.ico",
+              "src/favicon.png",
               "src/assets"
             ],
             "styles": [
@@ -99,7 +99,7 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              "src/favicon.ico"
+              "src/favicon.png"
             ],
             "styles": [
               "src/styles.scss"
