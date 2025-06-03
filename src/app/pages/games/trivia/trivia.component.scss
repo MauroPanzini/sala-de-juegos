@@ -30,7 +30,7 @@
     }
   }
   button:hover {
-    background-color: darken($green, 20%); /* Slightly darker green */
+    background-color: darken($green, 20%); 
   }
 
   .pokemon-img {
@@ -42,15 +42,15 @@
   }
   .options {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
-    gap: 15px; /* Espacio entre botones */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px; 
     justify-content: center;
     align-items: center;
-    max-width: 400px; /* Ancho máximo */
-    margin: auto; /* Centra el contenedor */
+    max-width: 400px;
+    margin: auto; 
   }
   .options-button {
-    width: 100%; /* Que ocupe toda la celda */
+    width: 100%; 
     text-align: center;
   }
 

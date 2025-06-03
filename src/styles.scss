@@ -10,7 +10,6 @@ $black: #0f0f0f;
 
 * {
   font-family: "Press Start 2P", sans-serif !important;
-  // background-color: $black !important;
   color: $light-gray !important;
 }
 body{
@@ -23,7 +22,6 @@ body{
   image-rendering: pixelated;
 }
 
-/* Ocultar flechas (botones de scroll) */
 ::-webkit-scrollbar-button {
   display: none;
   width: 0;
@@ -33,7 +31,7 @@ body{
 ::-webkit-scrollbar-thumb {
   background-color: $green;
   border: 3px solid $black;
-  border-radius: 0; /* Sin redondeo */
+  border-radius: 0;
   image-rendering: pixelated;
 }
 
@@ -41,10 +39,9 @@ body{
   background-color: $black;
   border: 1px solid $green;
   image-rendering: pixelated;
-  border-radius: 0; /* Track también sin bordes redondeados */
+  border-radius: 0; 
 }
 
-/* Scrollbar para Firefox */
 * {
   scrollbar-width: thin;
   scrollbar-color: $green $black;

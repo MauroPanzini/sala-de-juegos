@@ -23,10 +23,10 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       this.snackBar.open('Debes iniciar sesión para jugar.', 'Cerrar', {
-        duration: 3000, // milisegundos
+        duration: 3000, 
         horizontalPosition: 'center',
         verticalPosition: 'top',
-        panelClass: ['retro-snackbar'] // opcional para aplicar tu propio estilo
+        panelClass: ['retro-snackbar']
       });
       return this.router.parseUrl('/login');
     }

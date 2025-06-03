@@ -25,7 +25,7 @@
   <div class="column">
     <div class="card" (click)="toggleConfiguracion()">
       <h3>Configuración</h3>
-      <p>Preferencias del jugador, sonido, etc.</p>
+      <p>Preferencias de sonido y video.</p>
     </div>
   </div>
 </div>
@@ -45,7 +45,7 @@
 <h3>Sonido</h3>
 <div class="sound-options">
   <button class="button" (click)="toggleUXSound()">
-    UX Sound: {{ uxSoundEnabled ? 'Activado' : 'Desactivado' }}
+    Sonidos: {{ uxSoundEnabled ? 'Activado' : 'Desactivado' }}
   </button>
 
   <button class="button" (click)="toggleMusic()">

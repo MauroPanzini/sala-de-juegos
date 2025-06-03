@@ -110,7 +110,6 @@ export class AuthComponent {
       const email = userCredential.user.email;
       const now = new Date();
 
-      // Guardar último login
       await setDoc(
         doc(this.firestore, 'users', userId),
         {
@@ -120,7 +119,6 @@ export class AuthComponent {
         { merge: true }
       );
 
-      // Agregar entrada de login
       const loginRef = collection(this.firestore, `users/${userId}/logins`);
       await addDoc(loginRef, {
         email,
@@ -173,14 +171,12 @@ export class AuthComponent {
       const userId = userCredential.user.uid;
       const now = new Date();
 
-      // Crear usuario en Firestore
       await setDoc(doc(this.firestore, 'users', userId), {
         email: this.email,
         createdAt: now,
         lastLogin: now,
       });
 
-      // Registrar primer login
       const loginRef = collection(this.firestore, `users/${userId}/logins`);
       await addDoc(loginRef, {
         email: this.email,

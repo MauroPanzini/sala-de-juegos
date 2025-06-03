@@ -43,11 +43,6 @@ export class GameScoreService {
       );
   }
 
-  /**
-   * Obtiene la cantidad de registros en la subcolección "scores" para cada juego.
-   * @param games Lista de identificadores de juegos.
-   * @returns Promise con array de objetos { game, count }.
-   */
   getGamesPlayCounts(games: string[]): Promise<{ game: string; count: number }[]> {
     const promises = games.map((game) =>
       this.firestore

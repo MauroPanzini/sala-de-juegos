@@ -11,7 +11,7 @@ button {
 }
 
 button:hover {
-  background-color: darken($green, 20%); /* Slightly darker green */
+  background-color: darken($green, 20%); 
 }
 
 .game-card {
@@ -26,7 +26,7 @@ button:hover {
   font-size: 2rem;
   margin: 10px 0;
   letter-spacing: 10px;
-  color: $yellow; /* Adds more retro contrast */
+  color: $yellow; 
 }
 
 .letters button {
@@ -48,13 +48,13 @@ button:hover {
 }
 
 .letters button.correct {
-  background-color: $green; // Color de fondo verde para correctas
+  background-color: $green; 
   border: 2px solid $green;
-  color: black; // Ajusta el color del texto para buen contraste
+  color: black; 
 }
 
 .letters button.wrong {
-  background-color: $red; // Color de fondo rojo para erróneas
+  background-color: $red; 
   border: 2px solid $red;
   color: white;
 }

@@ -188,9 +188,8 @@ export class MinesweeperComponent implements OnInit {
   revealAll() {
   for (let row of this.board) {
     for (let cell of row) {
-      
+      cell.revealed = true;
       if (this.soundSettings.isUXEnabledValue() && cell.mine) {
-        cell.revealed = true;
         this.soundService.play('explosion');
       } 
     }

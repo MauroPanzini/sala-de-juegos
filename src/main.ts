@@ -20,8 +20,8 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(
       BrowserAnimationsModule,
       HttpClientModule,
-      AngularFireModule.initializeApp(environment.firebase), // Agrega la versión compat
-      AngularFirestoreModule // Agrega AngularFirestoreModule para la versión compat
+      AngularFireModule.initializeApp(environment.firebase), 
+      AngularFirestoreModule 
     ),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

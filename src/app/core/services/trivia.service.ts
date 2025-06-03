@@ -17,7 +17,6 @@ export class TriviaService {
         const randomIndexes = this.getRandomIndexes(pokemonList.length, 151); 
         const selectedPokemons = randomIndexes.map(i => pokemonList[i]);
 
-        // Para cada uno, obtenemos su data detallada (con imagen)
         const requests = selectedPokemons.map(p => this.http.get(p.url));
 
         return forkJoin(requests).pipe(

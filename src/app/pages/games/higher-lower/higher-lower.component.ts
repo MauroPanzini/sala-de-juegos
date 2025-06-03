@@ -74,10 +74,8 @@ export class HigherLowerComponent {
     this.gameOver = true;
     this.gameStarted = false;
 
-    // Guardar el score
     this.saveScore();
 
-    // Verificar si entra al top 10
     this.gameScoreService
       .getLeaderboard('Mayor o Menor', 10)
       .subscribe((leaderboard) => {
