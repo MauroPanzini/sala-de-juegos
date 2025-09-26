@@ -38,11 +38,69 @@ export class HangmanComponent {
     'euforia',
     'centrifugado',
     'murcielago',
-    'hiperblanduzco',
+    'empanada',
     'esqueleto',
     'koala',
     'farmaceutico'
   ];
+  hangmanStages: string[] = [
+
+  `
+  +---+
+      |
+      |
+      |
+      |
+      |
+=========
+`,
+  `
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========
+`,
+  `
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========
+`,
+  `
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========
+`,
+  `
+  +---+
+  |   |
+  O   |
+ /|\\  |
+      |
+      |
+=========
+`,
+  `
+  +---+
+  |   |
+  O   |
+ /|\\  |
+ / \\  |
+      |
+=========
+`
+];
+
 
   shuffledWords: string[] = [];
 

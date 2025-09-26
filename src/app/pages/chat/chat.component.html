@@ -10,10 +10,11 @@
         class="message"
       >
         <div>
-          <span class="message-header-email">{{ msg.email }}</span>
-          <span class="message-header-date">
-            [{{ msg.timestamp?.toDate() | date: 'short' }}]</span
-          >
+          <span class="message-header-email" *ngIf="msg.email !== userEmail">
+            {{ msg.email }} </span
+          ><span class="message-header-date">
+            [{{ msg.timestamp?.toDate() | date : "d/M/yy, h:mm a" }}]
+          </span>
         </div>
 
         <div class="message-card">
@@ -30,6 +31,7 @@
           formControlName="message"
           [rows]="1"
           (input)="adjustTextArea($event)"
+          (keydown.enter)="onEnter($event)"
         ></textarea>
         <div
           class="error"

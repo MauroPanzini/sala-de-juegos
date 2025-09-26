@@ -46,10 +46,38 @@ button {
 }
 
 .playing-card {
-  font-size: 4rem;
-  padding: 16px 32px;
+  width: 120px;
+  height: 180px;
+  background-color: white;
   border: 2px solid $green;
-  background-color: darken($green, 10%);
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: black;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+.card-number {
+  position: absolute;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.card-number.bottom {
+  bottom: 8px;
+  right: 8px;
+  transform: rotate(180deg);
+}
+.card-number.top {
+  top: 8px;
+  left: 8px;
+}
+
+.card-suit {
+  width: 50px;
+  height: 50px;
 }
 .playing-card.shake {
   animation: shake 0.3s ease;

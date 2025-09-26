@@ -58,3 +58,28 @@ button:hover {
   border: 2px solid $red;
   color: white;
 }
+.hangman-drawing {
+  font-family: "Courier New", monospace;
+  color: $green;
+  background-color: black;
+  padding: 10px;
+  border: 2px solid $green;
+  display: inline-block;
+  margin-bottom: 1rem;
+  white-space: pre; 
+}
+
+.endgame {
+  text-align: center;
+  margin-top: 20px;
+  color: $yellow;
+
+  p {
+    font-size: 1.4rem;
+    margin: 10px 0;
+  }
+
+  button {
+    margin-top: 15px;
+  }
+}

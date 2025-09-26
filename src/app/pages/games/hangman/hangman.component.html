@@ -1,13 +1,18 @@
 <div class="game-card">
   <h2>Ahorcado</h2>
-<!-- Vista inicial del juego -->
-<div *ngIf="!gameStarted && !gameFinished">
-  <button (click)="newGame()">Jugar</button>
-</div>
+
+  <!-- Vista inicial -->
+  <div *ngIf="!gameStarted && !gameFinished">
+    <button (click)="newGame()">Jugar</button>
+  </div>
 
   <!-- Vista del juego en curso -->
   <div class="game" *ngIf="gameStarted">
     <div class="left">
+      <div class="hangman-drawing">
+        <pre>{{ hangmanStages[5 - tries] }}</pre>
+      </div>
+
       <div class="game-dashes">
         <span *ngFor="let item of dashes">{{ item }}</span>
       </div>
@@ -17,7 +22,10 @@
           *ngFor="let letter of letters"
           (click)="selectLetter(letter)"
           [disabled]="letterStates[letter] !== undefined"
-          [ngClass]="{ 'correct': letterStates[letter] === 'correct', 'wrong': letterStates[letter] === 'wrong' }"
+          [ngClass]="{
+            correct: letterStates[letter] === 'correct',
+            wrong: letterStates[letter] === 'wrong'
+          }"
         >
           {{ letter }}
         </button>
@@ -30,13 +38,19 @@
     </div>
   </div>
 
-  <!-- Vista final del juego -->
-  <div *ngIf="!gameStarted && gameFinished" class="start-container">
+  <!-- Vista final -->
+  <div *ngIf="!gameStarted && gameFinished" class="endgame">
+    <div class="hangman-drawing">
+      <pre>{{ hangmanStages[5 - tries] }}</pre>
+    </div>
+
     <p>Tu puntaje final: {{ finalScore }}</p>
     <p *ngIf="newHighScoreMsg">{{ newHighScoreMsg }}</p>
+
     <button (click)="newGame()">Jugar de nuevo</button>
   </div>
 
+  <!-- Retro alert -->
   <app-retro-alert
     [message]="retroMessage"
     [show]="showRetroAlert"

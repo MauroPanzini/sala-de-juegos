@@ -3,7 +3,11 @@
 
   <div *ngIf="gameStarted" class="retro-game">
     <div class="card-section">
-      <div class="playing-card" [ngClass]="{ 'shake': wrongGuess }">{{ card }}</div>
+      <div class="playing-card" [ngClass]="{ 'shake': wrongGuess }">
+        <div class="card-number top">{{ card.number }}</div>
+        <img [src]="'../../../../assets/icons/' + card.suit + '.png'" alt="{{ card.suit }}" class="card-suit" />
+        <div class="card-number bottom">{{ card.number }}</div>
+      </div>
       <div class="buttons">
         <button (click)="mayorMenor('menor')">Menor</button>
         <button (click)="mayorMenor('mayor')">Mayor</button>
@@ -21,11 +25,9 @@
   </div>
 
   <!-- Pantalla final -->
-<div *ngIf="!gameStarted && gameOver" >
-  <p>Tu puntaje final: {{ score }}</p>
-  <p *ngIf="newHighScoreMsg">{{ newHighScoreMsg }}</p>
-  <button class="button"(click)="newGame()">Jugar de nuevo</button>
+  <div *ngIf="!gameStarted && gameOver">
+    <p>Tu puntaje final: {{ score }}</p>
+    <p *ngIf="newHighScoreMsg">{{ newHighScoreMsg }}</p>
+    <button class="button" (click)="newGame()">Jugar de nuevo</button>
+  </div>
 </div>
-
-</div>
-
