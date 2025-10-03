@@ -10,7 +10,7 @@
   <div class="game" *ngIf="gameStarted">
     <div class="left">
       <div class="hangman-drawing">
-        <pre>{{ hangmanStages[5 - tries] }}</pre>
+        <pre>{{ hangmanStages[6 - tries] }}</pre>
       </div>
 
       <div class="game-dashes">
@@ -40,8 +40,8 @@
 
   <!-- Vista final -->
   <div *ngIf="!gameStarted && gameFinished" class="endgame">
-    <div class="hangman-drawing">
-      <pre>{{ hangmanStages[5 - tries] }}</pre>
+    <div class="hangman-drawing-final">
+      <pre>{{ hangmanStages[6 - tries] }}</pre>
     </div>
 
     <p>Tu puntaje final: {{ finalScore }}</p>

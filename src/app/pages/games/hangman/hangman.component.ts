@@ -29,7 +29,7 @@ export class HangmanComponent {
     'T','U','V','W','X','Y','Z'
   ];
 
-  tries: number = 5;
+  tries: number = 6;
   dashes: string[] = [];
   words: string[] = [
     'neumatico',
@@ -95,6 +95,15 @@ export class HangmanComponent {
   |   |
   O   |
  /|\\  |
+   \\  |
+      |
+=========
+`,
+  `
+  +---+
+  |   |
+  O   |
+ /|\\  |
  / \\  |
       |
 =========
@@ -151,7 +160,7 @@ export class HangmanComponent {
       this.endGame();
       return;
     }
-    this.tries = 5;
+    this.tries = 6;
     this.pictureNumber = 0;
     this.wordToGuess = this.shuffledWords[this.currentWordIndex];
     this.dashes = Array(this.wordToGuess.length).fill('_');

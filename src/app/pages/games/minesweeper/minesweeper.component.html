@@ -53,6 +53,7 @@
             mine: cell.revealed && cell.mine
           }"
           (click)="onCellClick(i, j)"
+          (contextmenu)="onRightClick($event, i, j)"
         >
           <ng-container *ngIf="cell.revealed || (gameOver && cell.mine)">
             <img

@@ -196,6 +196,28 @@ export class MinesweeperComponent implements OnInit {
   }
 }
 
+onRightClick(event: MouseEvent, row: number, col: number) {
+  event.preventDefault(); 
+  const cell = this.board[row][col];
+
+  if (cell.revealed) return;
+
+  if (cell.flag) {
+    cell.flag = false;
+    cell.question = true;
+    this.minesLeft++;
+  } else if (cell.question) {
+    cell.question = false;
+  } else {
+    if (this.minesLeft > 0) {
+      cell.flag = true;
+      if (this.soundSettings.isUXEnabledValue()) {
+        this.soundService.play('flag');
+      }
+      this.minesLeft--;
+    }
+  }
+}
 
 
   checkWinCondition() {

@@ -68,6 +68,16 @@ button:hover {
   margin-bottom: 1rem;
   white-space: pre; 
 }
+.hangman-drawing-final {
+  font-family: "Courier New", monospace;
+  color: $green;
+  background-color: black;
+  padding: 10px;
+  border: 2px solid $red;
+  display: inline-block;
+  margin-bottom: 1rem;
+  white-space: pre; 
+}
 
 .endgame {
   text-align: center;
