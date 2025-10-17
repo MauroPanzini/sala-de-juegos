@@ -44,7 +44,7 @@ export class SurveyComponent {
       const encuestasRef = collection(this.firestore, 'encuestas');
   
       await addDoc(encuestasRef, {
-        nombreUsuario:this.user,
+        nombreUsuario:this.userSession.getUserEmail(),
         ...datos,
         fecha: new Date(),
       });

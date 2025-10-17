@@ -30,6 +30,14 @@
   transform: scale(1.1);
   box-shadow: 8px 8px 0 $black;
 }
+.card img {
+  width: 80%;
+  height: 140px;
+  object-fit: contain; 
+  filter: brightness(0.9) saturate(1.2) drop-shadow(0 0 3px $green);
+  image-rendering: pixelated;
+  margin-bottom: 10px;
+}
 
 .retro-container {
   background-color: $black;
